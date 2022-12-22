@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+            ul{
+        margin-left: 900px;
+    }
+    li{
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    </style>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body style="background-color: #fff0b3">
+<header>
+    <h1 style="text-align: center">Hungama</h1><br/>
+{% for j in d %}<ul>
+       <form action="./follow" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{ j.user }}" name="user">
+        <li><a href="./" class="btn btn-primary" role="button">home</a></li>
+           <li> <button type="submit" class="btn btn-primary" role="button">{{ d3 }}</button></li><br/><br/>
+    {% for k in messages %}
+        <h4 id="follow" style="float: right">{{ k }} Followers</h4>
+    {% endfor %}</form></ul>
+
+    <img src="{{ j.profileimg.url }}" height="100px" width="100px" style="border-radius: 100px" class="s">
+    {% endfor %}
+<hr>
+</header>
+{% for i in d2 %}
+    <a href="{{ i.image.url }}"  > <img src="{{ i.image.url }}" height="100px" width="100px"></a>
+    <i>{{ i.caption }}</i>
+{% endfor %}
+
+
+
+</body>
+</html>

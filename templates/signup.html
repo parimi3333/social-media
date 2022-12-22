@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        .error{
+            color: red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="card" style="width: 38rem;margin-left: 400px;margin-top: 100px">
+  <div class="card-body">
+    <h1 class="card-title" style="text-align: center">Hungama</h1>
+      {% for message in messages %}
+          <h5>{{ message }}</h5>
+      {% endfor %}
+
+<form action="./signup" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>username</label>
+    <input type="text" name="username" placeholder="username" id="username">
+    <span id="username_error" class="error"></span><br/>
+    <label>email</label>
+    <input type="email" placeholder="email" name="email" id="email">
+    <span id="email_error" class="error"></span><br/>
+    <label>password</label>
+    <input type="password" placeholder="password" name="password" id="password">
+    <span id="password_error" class="error"></span><br/>
+    <label>confirm password</label>
+    <input type="password" placeholder="confirm password" name="ps2" id="ps2">
+    <span id="ps2_error" class="error"></span><br/><p style="text-align: center">
+    <input type="submit"  value="submit"></p>
+</form>
+      <p style="text-align: center">
+          <a href="./signinpage" class="card-link">Sign In</a></p>
+  </div>
+</div>
+<script>
+    var username=document.getElementById('username');
+    var password=document.getElementById('password');
+    var password2=document.getElementById('ps2');
+    var email = document.getElementById('email');
+    var username_error = false;
+    var email_error = false;
+    var password_error = false;
+    var password2_error = false;
+    username.addEventListener('mouseout',username_fun);
+    email.addEventListener('mouseout',email_fun);
+    password.addEventListener('mouseout',password_check);
+    password2.addEventListener('mouseout',password_check2);
+    function username_fun(){
+                if(username.value==='') {
+            username.style.borderColor = 'red';
+            document.getElementById('username_error').innerHTML='username should not be empty';
+             username_error = true;
+        }
+        else {
+            username.style.borderColor='green';
+            document.getElementById('username_error').innerHTML='';
+            username_error=false;
+        }
+
+    }
+    function email_fun(){
+                if(email.value==='') {
+            email.style.borderColor = 'red';
+            document.getElementById('email_error').innerHTML='email should not be empty';
+             email_error = true;
+        }
+        else {
+            email.style.borderColor='green';
+            document.getElementById('email_error').innerHTML='';
+            email_error = false;
+        }
+
+    }
+    function password_check(){
+        let ps = document.getElementById('password').value;
+            const small = /[a-z]/;
+    const cap = /[A-Z]/;
+    const num = /[0-9]/;
+    const spl = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+           if(password.value==='') {
+            password.style.borderColor = 'red';
+            document.getElementById('password_error').innerHTML='password should not be empty';
+             password_error = true;
+        }
+        else if(password.value.length<=8) {
+                password.style.borderColor = 'red';
+                document.getElementById('password_error').innerHTML = 'password must be more than 8 charecters';
+                password_error = true;
+            }
+       else if(ps.search(cap)==-1){
+                        password.style.borderColor='red';
+            document.getElementById('password_error').innerHTML='password must contain one uppercase';
+            console.log(password.search(cap));
+            password_error = true;
+
+
+            }
+        else if(ps.search(small)==-1){
+                        password.style.borderColor='red';
+            document.getElementById('password_error').innerHTML='password must contain one small letter';
+            password_erro=true;
+
+            }
+        else if(ps.search(num)==-1){
+                        password.style.borderColor='red';
+            document.getElementById('password_error').innerHTML='password must contain one numarical value';
+                    password_error = true;
+            }
+        else if(ps.search(spl)==-1){
+                        password.style.borderColor='red';
+            document.getElementById('password_error').innerHTML='password must contain one special charecters';
+            password_error=true;
+            }
+        else{
+                        password.style.borderColor='green';
+            document.getElementById('password_error').innerHTML='';
+            password_error=false;
+
+            }
+
+    }
+    function password_check2(){
+        if(password2.value==''){
+                       password.style.borderColor='red';
+            document.getElementById('ps2_error').innerHTML='password should not be empty';
+            password2_error=true;
+
+        }
+               else if(password.value===password2.value){
+
+            password.style.borderColor='green';
+            document.getElementById('ps2_error').innerHTML='';
+            password2_error=false;
+        }
+        else {
+            password.style.borderColor='red';
+            document.getElementById('ps2_error').innerHTML='password must be same';
+            password2_error=true;
+        }
+
+    }
+    function subdata(){
+        username_error = false;
+        email_error = false;
+        password_error = false;
+        password2_error = false;
+        username_fun();
+        email_fun();
+        password_check();
+        password_check2();
+        if(username_error===false&&email_error===false&&password_error===false&&password2_error===false){
+            alert('registretion sucessful')
+            return true
+        }
+        else{
+            alert('please give valid details')
+            return false
+        }
+    }
+</script>
+</body>
+</html>

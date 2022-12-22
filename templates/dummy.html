@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>{% for i in d %}
+    <h4>{{ i }}</h4>
+
+{% endfor %}
+<p id="demo"></p>
+<script>
+    var a = 'kdjfksdjfkdjfkd';
+    const small = /[a-z]/;
+    const re = /[A-Z]/;
+    const num = /[0-9]/;
+    const spl = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    console.log(a.search(re));
+   if( a.search(small)==-1){
+       document.getElementById('demo').innerHTML='working';
+
+   }
+   else{
+       document.getElementById('demo').innerHTML='not working';
+   }
+</script>
+
+</body>
+</html>

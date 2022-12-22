@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+    ul{
+        margin-left: 900px;
+    }
+    li{
+        display: inline-block;
+        margin-right: 20px;
+    }
+</style>
+</head>
+<body style="background-color: #fff0b3">
+{% csrf_token %}
+<div class="card" style="width: 80rem">
+  {% for i in messages %}
+    <h1>wellcome <strong>{{ i }}</strong></h1>
+{% endfor %}
+<ul>
+    <li><a href="./uploaddata" class="btn btn-primary" role="button">upload</a></li>
+    <li><a href="./profile" class="btn btn-primary" role="button">profile</a></li>
+    <li><a href="./logout" class="btn btn-primary" role="button">log out</a></li>
+</ul>
+<hr style="border: 5px solid black;">
+  <h1 style="text-align: center">Home Page</h1>
+<div class="card-body" style="margin-left: 300px">
+<table style="padding-left: 200px">
+<p style="padding-left: 300px">
+{% for j in d reversed %}
+    <form action="./user" method="post">
+{% csrf_token %}
+    <input type="hidden" value="{{ j.user }}" name="user">
+        <tr><h3><button style="border: none" type="submit"> {{ j.user }}</button></h3>
+    </form> </tr><br/>
+    <tr class="tr"> <img src="{{ j.image.url }}" height="500px" width="500px"></tr><br/>
+    <tr class="tr">{{ j.caption }}</tr><br/>
+    <form action="./like" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="img_id" value="{{ j.id }}">
+            <button type="submit">like</button>
+        <p>no of likes are {{ j.no_of_likes }}</p><br/><br/><br/>
+    </form>
+{% endfor %}
+</p>
+</table>
+  </div>
+</div>
+
+</body>
+</html>
